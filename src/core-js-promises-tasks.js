@@ -170,16 +170,17 @@ function getAllResult(promises) {
  */
 function queuPromises(promises) {
   return new Promise((resolve) => {
-    const arr = [];
-    new Promise(() => {})
-      .then(() => {
-        for (let i = 0; i < promises.length; i += 1) {
-          promises[i].then((result) => arr.push(result));
+    const array = [];
+    let count = 0;
+    promises.forEach((promise, index) => {
+      promise.then((result) => {
+        array[index] = result;
+        count += 1;
+        if (count === promises.length) {
+          resolve(array.join(''));
         }
-      })
-      .finally(() => {
-        resolve(arr.join(''));
       });
+    });
   });
 }
 
