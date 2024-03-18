@@ -114,7 +114,12 @@ function getFirstPromiseResult(promises) {
  * [Promise.resolve(1), Promise.reject(2), Promise.resolve(3)] => Promise rejected with 2
  */
 function getAllOrNothing(promises) {
-  throw new Error('Not implemented');
+  return new Promise((resolve, reject) => {
+    Promise.all(promises).then(
+      (results) => resolve(results),
+      (reason) => reject(reason)
+    );
+  });
 }
 
 /**
